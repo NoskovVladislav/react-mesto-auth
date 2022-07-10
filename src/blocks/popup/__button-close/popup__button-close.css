@@ -14,16 +14,19 @@
 
 @media screen and (max-width: 767px) {
   .popup__button-close {
-    right: -15px;
-    top: -55px;
+    right: -32px;
+    top: -35px;
+    width: 40px;
+    height: 40px;
+    margin-top: 0px;
   }
 }
 
-@media screen and (max-width: 373px) {
+@media screen and (max-width: 320px) {
   .popup__button-close {
-    width: 35px;
+    right: -32px;
+    top: -35px;
+    width: 40px;
     height: 40px;
-    top: -32px;
-    right: -30px;
   }
 }

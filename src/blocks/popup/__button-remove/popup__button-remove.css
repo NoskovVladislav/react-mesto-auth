@@ -18,12 +18,19 @@
   opacity: .8;
 }
 
-@media screen and (max-width: 373px) {
-  .popup__button-remove {
-    max-width: calc(100% - 44px);
+@media screen and (max-width: 767px) {
+  .popup__button-remove{
+    max-width: calc(100% - (20px * 2));
+  }
+}
+
+
+@media screen and (max-width: 320px) {
+  .popup__button-remove{
+    max-width: calc(100% - 40px);
     font-size: 14px;
-    line-height: 17px;
-    min-height: 46px;
-    margin-top: 10px;
+    min-height: 40px;
+    margin-top: 0px;
+    margin-bottom: 20px;
   }
 }

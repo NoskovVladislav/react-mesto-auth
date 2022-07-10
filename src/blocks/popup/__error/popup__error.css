@@ -8,8 +8,16 @@
   min-height: 30px;
 }
 
+@media screen and (max-width: 767px) {
+  .popup__error  {
+    font-size: 12px;
+    min-height: 10px;
+  }
+}
+
 @media screen and (max-width: 373px) {
   .popup__error {
-    min-height: 20px;
+    font-size: 12px;
+    min-height: 10px;
   }
 }

@@ -1,0 +1,21 @@
+.popup__title_wrap_avatar{
+    margin-top: 45px;
+    margin-bottom: 45px;
+}
+@media screen and (max-width: 767px) {
+  .popup__title_wrap_avatar{
+    margin-top: 25px;
+    margin-bottom: 25px;
+    font-size: 18px;
+    line-height:21.78px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .popup__title_wrap_avatar{
+    font-size: 18px;
+    line-height:21.78px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+  }
+}
