@@ -30,7 +30,7 @@ class Api {
       .then(this._getResponseData);
   }
 
-  setInfoUser({ author, about }) {
+  setInfoUser({ name, about }) {
     return fetch(`${this._address}/${this._groupId}/users/me`, {
       method: 'PATCH',
       headers: {
@@ -38,8 +38,8 @@ class Api {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        name: author,
-        about,
+        name,
+        about
       })
     })
       .then(this._getResponseData);
@@ -80,7 +80,7 @@ class Api {
       .then(this._getResponseData);
   }
 
-  setUserAvatar({ avatar }) {
+  setUserAvatar(src) {
     return fetch(`${this._address}/${this._groupId}/users/me/avatar`, {
       method: 'PATCH',
       headers: {
@@ -88,7 +88,7 @@ class Api {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        avatar,
+        avatar: src,
       })
     })
       .then(this._getResponseData);

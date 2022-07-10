@@ -18,7 +18,7 @@
 }
 
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 373px) {
   .register__button-submit {
     font-size: 16px;
     line-height: 19px;

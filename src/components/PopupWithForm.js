@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const PopupWithForm = (props) => {
   const {
@@ -9,11 +9,35 @@ const PopupWithForm = (props) => {
     isOpen,
     onClose,
     onSubmit,
-    validationForm
+    isDisabled = false
   } = props;
 
+  // Реализация закрытия нажатием на ESC
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleEscapeClose = (event) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    };
+    document.addEventListener("keydown", handleEscapeClose);
+    return () => {
+      document.removeEventListener("keydown", handleEscapeClose);
+    };
+  }, [isOpen, onClose]);
+
+  // Реализация закрытия по оверлею
+  const handleOverlayClose = (e) => {
+    if (e.target === e.currentTarget && isOpen) {
+      onClose();
+    }
+    return;
+  };
+
   return (
-    <section className={`popup popup_type_${name} ${isOpen ? 'popup_opened' : ''}`}>
+    <section
+      onClick={handleOverlayClose}
+      className={`popup popup_type_${name} ${isOpen ? 'popup_opened' : ''}`}>
       <div className="popup__container">
         <button
           className="button popup__button-close"
@@ -30,12 +54,12 @@ const PopupWithForm = (props) => {
           {children}
           <button
             className={`button popup__button-submit 
-            ${!validationForm
+            ${isDisabled
                 ? 'popup__button-submit_invalid'
                 : ''
               }`}
             type={"submit"}>
-            {textButton}
+            {textButton || ""}
           </button>
         </form>
       </div>

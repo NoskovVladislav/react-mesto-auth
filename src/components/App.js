@@ -41,39 +41,34 @@ const App = () => {
 
 
   // ---------- Функции основного Api ----------
-  // Проверка наличия ответа сервера
-  const responseCheck = (res) => {
-    if (!res) throw new Error(`Ошибка: ${res.message}`);
-  }
-
   // Отправка информации на сервер
-  const handleUpdateUser = ({ author, about }) => {
-    return api.setInfoUser({ author, about })
+  const handleUpdateUser = (data) => {
+    return api.setInfoUser(data)
       .then(res => {
-        responseCheck(res);
         setCurrentUser(res);
         return res;
       })
+      .catch(err => console.log(`Error: ${err}`))
   }
 
   // Изменение аватара на сервере и отрисовка
-  const handleUpdateAvatar = ({ avatar }) => {
-    return api.setUserAvatar({ avatar })
+  const handleUpdateAvatar = (src) => {
+    return api.setUserAvatar(src)
       .then(res => {
-        responseCheck(res);
         setCurrentUser(res);
         return res;
       })
+      .catch(err => console.log(`Error: ${err}`))
   }
 
   // Добавление новой карточки на сервер и отрисовка
   const handleAddPlaceSubmit = ({ name, link }) => {
     return api.setCard({ name, link })
       .then(res => {
-        responseCheck(res);
         setCards([res, ...cards]);
         return res;
       })
+      .catch(err => console.log(`Error: ${err}`))
   }
 
   // Контоль состояния лайка и работа с состоянием на сервере
@@ -82,22 +77,20 @@ const App = () => {
 
     return api.changeLikeCardStatus(card._id, isLiked)
       .then(res => {
-        responseCheck(res);
-        const newCards = cards.map(item => item._id === card._id ? res : item);
-        setCards(newCards);
+        setCards(state => state.map(item => item._id === card._id ? res : item));
         return res;
       })
+      .catch(err => console.log(`Error: ${err}`))
   }
 
   // Удаления карточки с сервера
   const handleCardDelete = (useCardId) => {
     return api.removeCard(useCardId)
       .then(res => {
-        responseCheck(res);
-        const newCards = cards.filter(item => item._id === useCardId ? null : item);
-        setCards(newCards);
+        setCards(state => state.filter(item => item._id === useCardId ? null : item));
         return res;
       })
+      .catch(err => console.log(`Error: ${err}`))
   }
 
   useEffect(() => {
@@ -120,10 +113,13 @@ const App = () => {
 
   // ---------- Функции запросов api/auth ----------
   // Проверка токена пользователя на подленность на сервере
+  // проверка, что пользователь уже авторизован
+  const [isAuthChecking, setIsAuthChecking] = useState(true);
   const tokenCheck = useCallback(() => {
     const jwt = localStorage.getItem('jwt');
 
     if (jwt) {
+      setIsAuthChecking(true);
       auth.getContent(jwt)
         .then((res) => {
           if (res) {
@@ -134,7 +130,10 @@ const App = () => {
             history.push('/mesto');
           }
         })
-        .catch(() => history.push('/sign-in'));
+        .catch(() => history.push('/sign-in'))
+        .finally(() => setIsAuthChecking(false))
+    } else {
+      setIsAuthChecking(false)
     }
   }, [history])
 
@@ -199,7 +198,9 @@ const App = () => {
         <Switch>
           <ProtectedRoute
             path="/mesto"
-            loggedIn={loggedIn}>
+            loggedIn={loggedIn}
+            isChecking={isAuthChecking}
+            exact>
             <Main
               onCardDelete={handleCardDelete}
               onCardLike={handleCardLike}
@@ -240,3 +241,10 @@ const App = () => {
 }
 
 export default App;
+
+// Привет! Благодарю за ревью) 
+// 1) Ошибку в консоле поправил http://joxi.ru/8AnJnnpHN3REVA
+// 2) Все критические ошибки вроде устранил
+// 3) Сделал глубокий рефакторинг, реализовал "можно лучше" + добавил закрытие попапов(всеми способами)
+// 4) Сделать свой собственный хук долго не получалось, но вроде норм,спасибо за подсказку)
+// Хорошего дня!

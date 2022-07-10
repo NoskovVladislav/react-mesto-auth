@@ -9,7 +9,7 @@
   margin: 15px 0 0 0;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 373px) {
   .register__signin p{
     margin: 20px 0 0 0;
   }
