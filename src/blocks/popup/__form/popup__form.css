@@ -8,20 +8,10 @@
   padding: 0;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 373px) {
   .popup__form {
+    max-width: calc(100% - (22px * 2));
     width: 100%;
-    max-width: calc(100% - 40px);
-    margin-left: 20px;
-    margin-bottom: 30px;
-  }
-}
-
-@media screen and (max-width: 320px) {
-  .popup__form {
-    width: 100%;
-    max-width: calc(100% - 40px);
-    margin-left: 20px;
-    margin-bottom: 0px;
+    margin-bottom: 25px;
   }
 }
