@@ -1,13 +1,12 @@
 import React from 'react';
 import { useFormWithValidation } from "../hooks/useFormWithValidation";
 
-const Login = ({ onLogin }) => {
+function Login(props) {
 
   // Используем пользовательский Хук
   const {
     values,
     handleChange,
-    resetFrom,
     errors,
     isValid,
     isValidInputs
@@ -17,11 +16,7 @@ const Login = ({ onLogin }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    onLogin(values)
-      .then(resetFrom())
-      .catch(err => {
-        console.log(err.message || 'Что то пошло не так')
-      })
+    props.onLogin(values);
   }
 
   return (

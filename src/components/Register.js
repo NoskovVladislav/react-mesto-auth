@@ -2,7 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useFormWithValidation } from "../hooks/useFormWithValidation";
 
-const Register = ({ onRegister }) => {
+
+// Добрый день, переписал через props. Я если честно уже не понимаю, что от меня требуется, наставники говорят, что норм написано, Вы, что не верно. Если снова не так, то можно вас попросить написать развернутый комментарий что нужно править т.к. я в ступоре. Запросы и так в  app.js. Вообщем я в полном ступоре,хорошего дня..
+
+
+
+function Register(props) {
 
   // Используем пользовательский Хук
   const {
@@ -32,12 +37,8 @@ const Register = ({ onRegister }) => {
       return;
     }
 
-    // Запрос на сервер и обработка результата
-    onRegister(values)
-      .then(resetFrom())
-      .catch(err => {
-        console.log(err.message || 'Что то пошло не так')
-      })
+
+    props.onRegister(values);
   }
 
   return (
